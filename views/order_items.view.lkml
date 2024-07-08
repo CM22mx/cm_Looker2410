@@ -7,6 +7,9 @@ view: order_items {
     type: number
     sql: ${TABLE}.id ;;
   }
+  dimension: user_id {
+    sql: ${id} ;;
+  }
   dimension: inventory_item_id {
     type: number
     # hidden: yes
