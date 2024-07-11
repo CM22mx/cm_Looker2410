@@ -25,6 +25,11 @@ view: order_items {
     type: string
     sql: ${TABLE}.phones ;;
   }
+  dimension: get_in_touch {
+   # sql: "https://example.com" ;;
+
+    html: <a href="{{rendered_value}}" target="_blank" rel="noopener noreferrer">　Get in touch　</a> ;;
+  }
   dimension_group: returned {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
