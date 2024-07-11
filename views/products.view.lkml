@@ -8,8 +8,33 @@ view: products {
     sql: ${TABLE}.id ;;
   }
   dimension: brand {
+    group_label: "Branding"
     type: string
+    #case_sensitive: no
+    #drill_fields: [inventory_item.cost]
     sql: ${TABLE}.brand ;;
+  }
+  parameter: brand_filter_test {
+    type: string
+    allowed_value: {
+      label: "Allegra K"
+      value: "Allegra K"
+    }
+    allowed_value: {
+      label: "Calvin Klein"
+      value: "Calvin Klein"
+    }
+    allowed_value: {
+      label: "Kiran"
+      value: "1"
+    }
+  }
+  dimension: brand_test {
+    sql: {% if brand_filter_test._parameter_value == "'1'" %}
+    '1'
+    {% else %}
+    ${brand}
+    {% endif %};;
   }
   dimension: category {
     type: string
@@ -37,6 +62,8 @@ view: products {
   }
   measure: count {
     type: count
-    drill_fields: [id, item_name, inventory_items.count]
+    drill_fields: [id, item_name, inventory_items.count, sku, rank, brand,
+      department, category, order_item.phone, orders.status, orders.user_id,
+      users.age, users.city, users.Country]
   }
 }
