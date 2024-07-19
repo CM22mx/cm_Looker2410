@@ -34,6 +34,10 @@ view: order_items {
     type: number
     sql: ${TABLE}.sale_price ;;
   }
+  dimension: now {
+    type: string
+    sql: SUBSTR(NOW(),1,10) ;;
+  }
   dimension: sale_pricetest {
     type: number
     sql: ${TABLE}.sale_price ;;
