@@ -7,6 +7,9 @@ view: order_items {
     type: number
     sql: ${TABLE}.id ;;
   }
+  dimension: user_id {
+    sql: ${id} ;;
+  }
   dimension: inventory_item_id {
     type: number
     # hidden: yes
@@ -20,10 +23,16 @@ view: order_items {
   dimension: phone {
     type: string
     sql: ${TABLE}.phone ;;
+
   }
   dimension: phones {
     type: string
     sql: ${TABLE}.phones ;;
+  }
+  dimension: get_in_touch {
+   # sql: "https://example.com" ;;
+
+    html: <a href="{{rendered_value}}" target="_blank" rel="noopener noreferrer">　Get in touch　</a> ;;
   }
   dimension_group: returned {
     type: time
@@ -33,6 +42,21 @@ view: order_items {
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
+    html:  {% assign pop_val = sale_price._value %}
+    {% if pop_val > 0 %}
+    <div style='display: inline-block;'>
+    <p style='color: #53b94e; font-size:100%;'>{{ sale_price._rendered_value }}</p>
+    </div>
+    {% elsif pop_val < 0 %}
+    <div style='display: inline-block;'>
+    <p style='color: #d84555; font-size:100%;'>{{ sale_price._rendered_value }}</p>
+    </div>
+    {% else %}
+    <div style='display: inline-block;'>
+    <p style='font-size:100%;'>{{ sale_price._rendered_value }}</p>
+    </div>
+    {% endif %} ;;
+    value_format: "$#.00,\" K\""
   }
   dimension: now {
     type: string

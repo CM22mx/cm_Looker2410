@@ -1,4 +1,4 @@
-view: users {
+view: users_test {
   sql_table_name: demo_db.users ;;
   drill_fields: [id]
 
@@ -32,8 +32,6 @@ view: users {
   dimension: first_name {
     type: string
     sql: ${TABLE}.first_name ;;
- html:<img src= "https://images.app.goo.gl/869ddqvRkWPav58M6{{ value }}&chs=400x120&cht=lc&chds=a&chm=N,000000,0,1::2,11&chma=40,40,20,20">  ;;
-  # html: <img src="https://chart.apis.google.com/chart?chco=0077CC&chd=t:{{ value }}&chs=400x120&cht=lc&chds=a&chm=N,000000,0,1::2,11&chma=40,40,20,20"> ;;
   }
   dimension: gender {
     type: string
@@ -59,15 +57,15 @@ view: users {
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-  id,
-  first_name,
-  last_name,
-  events.count,
-  orders.count,
-  saralooker.count,
-  sindhu.count,
-  user_data.count
-  ]
+      id,
+      first_name,
+      last_name,
+      events.count,
+      orders.count,
+      saralooker.count,
+      sindhu.count,
+      user_data.count
+    ]
   }
 
 }

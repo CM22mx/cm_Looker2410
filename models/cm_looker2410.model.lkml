@@ -10,7 +10,18 @@ datagroup: cm_looker2410_default_datagroup {
 
 persist_with: cm_looker2410_default_datagroup
 
+access_grant: can_view_test_data {
+  user_attribute: can_view_test_data
+  allowed_values: ["TRUE"]
+}
+access_grant: can_view_test2_data {
+  user_attribute: can_view_test_data
+  allowed_values: ["TRUE"]
+}
+
+
 explore: billion_orders {
+  required_access_grants: [can_view_test_data]
   join: orders {
     type: left_outer
     sql_on: ${billion_orders.order_id} = ${orders.id} ;;
@@ -108,10 +119,23 @@ explore: inventory_items {
 
 explore: map_layer {}
 
+explore: users_test {
+  join: order_items {
+    type: left_outer
+    sql: ${order_items.user_id} = ${users_test.id} ;;
+    relationship: many_to_one
+  }
+
+}
 explore: orders {
   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
+    relationship: many_to_one
+  }
+  join: order_items {
+    type: left_outer
+    sql_on: ${orders.user_id} = ${order_items.id}  ;;
     relationship: many_to_one
   }
 }
